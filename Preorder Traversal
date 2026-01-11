@@ -1,0 +1,41 @@
+/* Preorder - Order: Root → Left → Right */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    char data;
+    struct node *left, *right;
+};
+
+struct node* createNode(char);
+void preorder(struct node*);
+
+int main() {
+    struct node* root = createNode('A');
+    root->left = createNode('B');
+    root->right = createNode('C');
+    root->left->left = createNode('D');
+    root->left->right = createNode('E');
+
+    printf("Preorder Traversal: ");
+    preorder(root);
+
+    return 0;
+}
+
+struct node* createNode(char data) {
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+void preorder(struct node* root) {
+    if (root != NULL) {
+        printf("%c ", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
