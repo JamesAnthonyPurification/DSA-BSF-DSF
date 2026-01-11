@@ -1,0 +1,42 @@
+/* INORDER TRAVERSAL - Order: Left → Root → Right */ 
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    char data;
+    struct node *left, *right;
+};
+
+struct node* createNode(char);
+void inorder(struct node*);
+
+int main() {
+    struct node* root = createNode('A');
+    root->left = createNode('B');
+    root->right = createNode('C');
+    root->left->left = createNode('D');
+    root->left->right = createNode('E');
+
+    printf("Inorder Traversal: ");
+    inorder(root);
+
+    return 0;
+}
+
+struct node* createNode(char data) {
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+void inorder(struct node* root) {
+    if (root != NULL) {
+        inorder(root->left);
+        printf("%c ", root->data);
+        inorder(root->right);
+    }
+}
