@@ -1,0 +1,41 @@
+/* Postorder Traversal - Order: Left → Right → Root */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    char data;
+    struct node *left, *right;
+};
+
+struct node* createNode(char);
+void postorder(struct node*);
+
+int main() {
+    struct node* root = createNode('A');
+    root->left = createNode('B');
+    root->right = createNode('C');
+    root->left->left = createNode('D');
+    root->left->right = createNode('E');
+
+    printf("Postorder Traversal: ");
+    postorder(root);
+
+    return 0;
+}
+
+struct node* createNode(char data) {
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+void postorder(struct node* root) {
+    if (root != NULL) {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%c ", root->data);
+    }
+}
